@@ -1,0 +1,12 @@
+' #Bala_Excel_Insights:
+' What is Sub and End Sub: 
+'   - `Sub` is used to define the start of a procedure in VBA.
+'   - `End Sub` marks the end of the procedure.
+'   - Procedures contain blocks of code that perform specific tasks.
+' What is Macro:
+'   - A macro is a series of instructions written in VBA that automate repetitive tasks in Excel.
+' Check out more examples on my blog:Bala_Excel_Insights
+
+Sub FindAndReplace()
+    Cells.Replace What:="OldValue", Replacement:="NewValue"
+End Sub
