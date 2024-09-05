@@ -1,0 +1,68 @@
+Sub InsertPivotTable()
+
+'Declare Variables
+Dim PSheet As Worksheet
+Dim DSheet As Worksheet
+Dim PCache As PivotCache
+Dim PTable As PivotTable
+Dim PRange As Range
+Dim LastRow As Long
+Dim LastCol As Long
+
+'Insert a New Blank Worksheet
+On Error Resume Next
+Application.DisplayAlerts = False
+Worksheets("PivotTable").Delete
+Sheets.Add Before:=ActiveSheet
+ActiveSheet.Name = "D TESTING"
+Application.DisplayAlerts = True
+Set PSheet = Worksheets("D TESTING")
+Set DSheet = Worksheets("TESTING")
+
+'Define Data Range
+LastRow = DSheet.Cells(Rows.Count, 1).End(xlUp).Row
+LastCol = DSheet.Cells(1, Columns.Count).End(xlToLeft).Column
+Set PRange = DSheet.Cells(1, 1).Resize(LastRow, LastCol)
+
+'Define Pivot Cache
+Set PCache = ActiveWorkbook.PivotCaches.Create _
+(SourceType:=xlDatabase, SourceData:=PRange). _
+CreatePivotTable(TableDestination:=PSheet.Cells(2, 2), _
+TableName:="NewPivotTable")
+
+'Insert Blank Pivot Table
+Set PTable = PCache.CreatePivotTable _
+(TableDestination:=PSheet.Cells(1, 1), TableName:="TESTING")
+
+
+
+'Insert Row Fields
+With ActiveSheet.PivotTables("NewPivotTable").PivotFields("Your filed name")
+.Orientation = xlRowField
+.Position = 1
+End With
+
+'Insert Column Fields
+With ActiveSheet.PivotTables("NewPivotTable").PivotFields("Your filed name")
+.Orientation = xlColumnField
+.Position = 1
+End With
+
+'Insert Column Fields
+With ActiveSheet.PivotTables("NewPivotTable").PivotFields("Your filed name")
+.Orientation = xlColumnField
+.Position = 1
+End With
+
+
+'Insert Data Field
+With ActiveSheet.PivotTables("NewPivotTable").PivotFields("Your filed name")
+.Orientation = xlDataField
+.Function = xlSum
+.NumberFormat = "#,##0"
+.Name = "My table"
+End With
+
+ .PivotFields("Order #").Subtotals(1) = True
+ .PivotFields("Order #").Subtotals(1) = False
+End Sub
