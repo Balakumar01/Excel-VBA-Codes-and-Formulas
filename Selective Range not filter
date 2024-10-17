@@ -1,0 +1,16 @@
+Sub ApplyFilterAndMakeVisible()
+    Dim ws As Worksheet
+    Set ws = ThisWorkbook.Sheets("Yoursheetname")
+    
+    ' Unhide the specified range
+    ws.Rows("1:11").Hidden = False
+    
+    ' Select the range
+    ws.Range("R1:S11").Select
+    'i Reffered this range wants to be visible when i apply filter for entire sheet
+    ' Apply the filter
+    With ws
+        .AutoFilterMode = False ' Clear any existing filters
+        .Range("R1:S11").AutoFilter
+    End With
+End Sub
