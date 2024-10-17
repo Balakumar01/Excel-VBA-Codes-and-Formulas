@@ -1,0 +1,27 @@
+Sub ColorCellsBasedOnValueInK()
+    Dim ws As Worksheet
+    Dim cell As Range
+    Dim lastRow As Long
+    Dim checkColumn As Range
+    
+    ' Set the worksheet
+    Set ws = ThisWorkbook.Sheets("yoursheetname")
+    
+    ' Find the last row with data in column K
+    lastRow = ws.Cells(ws.Rows.Count, "K").End(xlUp).Row
+    
+    ' Define the range to check in column K
+    Set checkColumn = ws.Range("K2:K" & lastRow) ' Adjusts to the last row dynamically
+
+    ' Loop through each cell in the specified range
+    For Each cell In checkColumn
+        If cell.Value = True Then
+            cell.Interior.Color = RGB(144, 238, 144) ' Light green fill for TRUE
+        ElseIf cell.Value = False Then
+            cell.Interior.Color = RGB(255, 182, 193) ' Light red fill for FALSE
+        Else
+            cell.Interior.ColorIndex = xlNone ' Remove fill if neither TRUE nor FALSE
+        End If
+    Next cell
+End Sub
+
